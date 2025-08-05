@@ -1,0 +1,13 @@
+version: "3"
+services:
+  management_api:
+    build: ./apps/management_api
+    ports:
+      - "5000:5000"
+
+  web_app:
+    build: ./apps/web_app
+    depends_on:
+      - management_api
+    ports:
+      - "7860:7860"

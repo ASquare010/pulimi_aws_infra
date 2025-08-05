@@ -1,0 +1,4 @@
+name: pulumi-aws-infra
+runtime:
+  name: python
+description: Infrastructure stack for EKS microservices
