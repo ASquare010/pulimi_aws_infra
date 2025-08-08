@@ -1,16 +1,16 @@
-import gradio as gr
 import requests
+import gradio as gr
+from src.utils.common import API_URL, PORT 
+from shared_lib.logger import logger
 
-API_URL = "http://management_api:5000/items"
 
 def add_and_refresh(item):
-    # Add item
-    requests.post(API_URL, json={"item": item})
-    # Get updated list
-    r = requests.get(API_URL)
+    requests.post(f"{API_URL}/items", json={"item": item})
+    r = requests.get(f"{API_URL}/items")
     return r.json()
 
-with gr.Blocks() as demo:
+
+with gr.Blocks() as app:
     gr.Markdown("# Web App (Gradio Frontend)")
     inp = gr.Textbox(label="Enter item")
     btn = gr.Button("Add")
@@ -18,5 +18,7 @@ with gr.Blocks() as demo:
 
     btn.click(fn=add_and_refresh, inputs=inp, outputs=out)
 
+
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860)
+    logger.info(f"Starting Gradio app on port {PORT}")
+    app.launch(server_name="0.0.0.0", server_port=PORT)

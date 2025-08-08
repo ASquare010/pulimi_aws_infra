@@ -11,8 +11,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source
 COPY . .
 
-# Expose port
-EXPOSE 5000
+# Copy shared_lib from root
+COPY shared_lib /shared_lib
 
-# Start the Fast API
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
+# Set PYTHONPATH to include /app and /shared_lib
+ENV PYTHONPATH="/app:/shared_lib"
+
+# Expose port (default)
+ARG PORT=5000
+ENV PORT=${PORT}
+EXPOSE ${PORT}
+
+# Start FastAPI using env var
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT"]
