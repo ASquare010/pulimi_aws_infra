@@ -1,7 +1,6 @@
 import requests
 import gradio as gr
-from src.utils.common import API_URL, PORT 
-from shared_lib.logger import logger
+from src.utils.common import API_URL, PORT, logger
 
 
 def add_and_refresh(item):
@@ -21,4 +20,4 @@ with gr.Blocks() as app:
 
 if __name__ == "__main__":
     logger.info(f"Starting Gradio app on port {PORT}")
-    app.launch(server_name="0.0.0.0", server_port=PORT)
+    app.launch(server_port=PORT)

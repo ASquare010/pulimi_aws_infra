@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from src.utils.pymodels import Item
-from src.utils.common import PORT
-from shared_lib.logger import logger 
+from src.utils.common import PORT, logger
 
 # -----------------------------------
 
@@ -34,5 +33,5 @@ def get_status():
 
 if __name__ == "__main__":
     import uvicorn
-    logger.info("Starting Management API on port 5000")
-    uvicorn.run(app, host="0.0.0.0", port=PORT)
+    logger.info(f"Starting Management API on port {PORT}")
+    uvicorn.run(app, port=PORT)
