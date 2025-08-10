@@ -34,4 +34,4 @@ def get_status():
 if __name__ == "__main__":
     import uvicorn
     logger.info(f"Starting Management API on port {PORT}")
-    uvicorn.run(app, port=PORT)
+    uvicorn.run(app, host="0.0.0.0", port=PORT)

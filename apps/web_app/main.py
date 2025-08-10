@@ -20,4 +20,4 @@ with gr.Blocks() as app:
 
 if __name__ == "__main__":
     logger.info(f"Starting Gradio app on port {PORT}")
-    app.launch(server_port=PORT)
+    app.launch(server_name="0.0.0.0",server_port=PORT)
