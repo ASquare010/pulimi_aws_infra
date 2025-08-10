@@ -10,7 +10,7 @@ RUN pip install uv
 COPY apps/web_app/pyproject.toml ./pyproject.toml
 
 # Install dependencies using uv
-RUN uv pip install --system --no-deps .
+RUN uv pip install --system .
 
 # Copy only this service's source code
 COPY apps/web_app/ ./
