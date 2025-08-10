@@ -1,13 +1,19 @@
 # Base image
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install uv
+RUN pip install uv
 
-COPY . .
+# Copy dependency files for this service
+COPY apps/web_app/pyproject.toml ./pyproject.toml
+
+# Install dependencies using uv
+RUN uv pip install --system --no-deps .
+
+# Copy only this service's source code
+COPY apps/web_app/ ./
 
 # Copy shared_lib from root
 COPY shared_lib /shared_lib
