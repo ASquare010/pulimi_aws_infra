@@ -1,33 +1,33 @@
-name: Build & Push
+# name: Build & Push
 
-on:
-  push:
-    branches: ["main"]
+# on:
+#   push:
+#     branches: ["main"]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        service: ["management_api", "web_app"]
+#     strategy:
+#       matrix:
+#         service: ["management_api", "web_app"]
 
-    steps:
-      - uses: actions/checkout@v3
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v2
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-1
 
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+#       - name: Log in to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v2
         
-      - name: Build & Push ${{ matrix.service }}
-        run: |
-          IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/${{ matrix.service }}-repo:latest"
-          docker build -t $IMAGE_URI ./apps/${{ matrix.service }}
-          docker push $IMAGE_URI
+#       - name: Build & Push ${{ matrix.service }}
+#         run: |
+#           IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/${{ matrix.service }}-repo:latest"
+#           docker build -t $IMAGE_URI ./apps/${{ matrix.service }}
+#           docker push $IMAGE_URI
